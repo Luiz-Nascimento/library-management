@@ -60,4 +60,10 @@ public class Book {
     public void returnBook() {
         this.avaliability = true;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + ID  + "\nTitle: " + title + "\nAuthor: " + author + "\nSynopsis: " + synopsis +
+                "\nStatus: " + (avaliability ? "Avaliable to rent" : "Already rented");
+    }
 }

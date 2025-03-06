@@ -47,5 +47,36 @@ public class DatabaseManager {
             System.out.println("Error adding book: " + e.getMessage());
         }
     }
+    public void removeBook(int ID) {
+        String query = "DELETE FROM books WHERE id=?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, ID);
 
+            pstmt.executeUpdate();
+            System.out.println("Book removed sucessfully!");
+        } catch (SQLException e) {
+            System.out.println("Error removing the book: " + e.getMessage());
+        }
+    }
+
+    public Book listBook(int ID) {
+        String query = "SELECT * FROM books WHERE id=?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, ID);
+             ResultSet resultSet = pstmt.executeQuery();
+             if (resultSet.next()) {
+                 Book book = new Book(resultSet.getInt("id"), resultSet.getString("title"),
+                         resultSet.getString("author"), resultSet.getString("synopsis"));
+                 return book;
+             }
+             else {
+                 System.out.println("Couldn't find a book with that ID! (" + ID + ")");
+                 return null;
+             }
+        } catch (SQLException e ) {
+            System.out.println("Couldn't not read the book " + e.getMessage());
+            return null;
+        }
+
+    }
 }

@@ -35,6 +35,14 @@ public class Program {
                 dbManager.addBook(book);
                 dbManager.disconnect();
             }
+            else if(userResponse == 2) {
+                System.out.println("Book ID: ");
+                int ID = sc.nextInt();
+                DatabaseManager dbManager = new DatabaseManager();
+                dbManager.connect();
+                dbManager.removeBook(ID);
+                dbManager.disconnect();
+            }
         }
         else {
             System.out.println("User menu still not finished.");
